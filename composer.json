@@ -1,7 +1,7 @@
 {
-	"name": "aimeos-extensions/ai-logsta",
-	"description": "Aimeos Logsta extension",
-	"keywords": ["aimeos", "extension", "fulfillment", "logsta"],
+	"name": "aimeos-extensions/ai-shippings",
+	"description": "Aimeos shippings extension",
+	"keywords": ["aimeos", "extension", "fulfillment", "delivery", "shipping", "logsta"],
 	"type": "aimeos-extension",
 	"license": "LGPL-3.0",
 	"prefer-stable": true,

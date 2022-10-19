@@ -143,6 +143,6 @@ class TestHelper
 		$ctx->setLocale( $locale );
 
 
-		return $ctx->setEditor( 'ai-logsta' );
+		return $ctx->setEditor( 'ai-fulfillment' );
 	}
 }

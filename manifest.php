@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'name' => 'ai-logsta',
+	'name' => 'ai-shippings',
 	'config' => [
 		'config',
 	],
