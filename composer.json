@@ -1,5 +1,5 @@
 {
-	"name": "aimeos-extensions/ai-shippings",
+	"name": "aimeos/ai-shippings",
 	"description": "Aimeos shippings extension",
 	"keywords": ["aimeos", "extension", "fulfillment", "delivery", "shipping", "logsta"],
 	"type": "aimeos-extension",
