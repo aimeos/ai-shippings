@@ -214,6 +214,7 @@ class Logsta
 		$groupId = $this->getConfigValue( 'logsta.shippingServiceGroupId', 0 );
 		$payload = [
 			'estimateRequests' => [[
+				'requestUUID' => $this->context()->token(),
 				'shippingServiceGroupId' => $groupId,
 				'grossWeightKg' => $weight,
 				'sellerId' => $sellerId,
