@@ -103,11 +103,11 @@ class Logsta
 	/**
 	 * Returns the price when using the provider.
 	 *
-	 * @param \Aimeos\MShop\Order\Item\Base\Iface $basket Basket object
+	 * @param \Aimeos\MShop\Order\Item\Iface $basket Basket object
 	 * @param array $options Selected options by customer from frontend
 	 * @return \Aimeos\MShop\Price\Item\Iface Price item containing the price, shipping, rebate
 	 */
-	public function calcPrice( \Aimeos\MShop\Order\Item\Base\Iface $basket, array $options = [] ) : \Aimeos\MShop\Price\Item\Iface
+	public function calcPrice( \Aimeos\MShop\Order\Item\Iface $basket, array $options = [] ) : \Aimeos\MShop\Price\Item\Iface
 	{
 		$price = $this->getProvider()->calcPrice( $basket, $options );
 
@@ -118,10 +118,10 @@ class Logsta
 	/**
 	 * Returns the shipping costs
 	 *
-	 * @param \Aimeos\MShop\Order\Item\Base\Iface $basket Basket object
+	 * @param \Aimeos\MShop\Order\Item\Iface $basket Basket object
 	 * @return float Shipping costs
 	 */
-	protected function getCosts( \Aimeos\MShop\Order\Item\Base\Iface $basket ) : float
+	protected function getCosts( \Aimeos\MShop\Order\Item\Iface $basket ) : float
 	{
 		$address = current( $basket->getAddress( 'delivery' ) ) ?: current( $basket->getAddress( 'payment' ) );
 
@@ -149,10 +149,10 @@ class Logsta
 	/**
 	 * Returns the product quantities
 	 *
-	 * @param \Aimeos\MShop\Order\Item\Base\Iface $basket Basket object
+	 * @param \Aimeos\MShop\Order\Item\Iface $basket Basket object
 	 * @return array Associative list of product codes as keys and quantities as values
 	 */
-	protected function getQuantities( \Aimeos\MShop\Order\Item\Base\Iface $basket ) : array
+	protected function getQuantities( \Aimeos\MShop\Order\Item\Iface $basket ) : array
 	{
 		$prodMap = [];
 

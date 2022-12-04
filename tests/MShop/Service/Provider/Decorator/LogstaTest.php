@@ -98,19 +98,19 @@ class LogstaTest extends \PHPUnit\Framework\TestCase
 				[['estimateResults' => [['success' => true, 'amountLabel' => '10.00']]], 200]
 			) );
 
-		$this->assertEquals( '10.00', $this->object->calcPrice( $this->getOrderBaseItem() )->getCosts() );
+		$this->assertEquals( '10.00', $this->object->calcPrice( $this->getOrderItem() )->getCosts() );
 	}
 
 
 	/**
-	 * @return \Aimeos\MShop\Order\Item\Base\Iface
+	 * @return \Aimeos\MShop\Order\Item\Iface
 	 */
-	protected function getOrderBaseItem()
+	protected function getOrderItem()
 	{
 		$manager = \Aimeos\MShop::create( $this->context, 'order' );
 		$search = $manager->filter()->add( ['order.datepayment' => '2008-02-15 12:34:56'] );
 
-		$ref = ['order/base', 'order/base/address', 'order/base/product'];
-		return $manager->search( $search, $ref )->first( new \RuntimeException( 'No order item found' ) )->getBaseItem();
+		$ref = ['order', 'order/address', 'order/product'];
+		return $manager->search( $search, $ref )->first( new \RuntimeException( 'No order item found' ) );
 	}
 }
