@@ -1,3 +1,4 @@
+.phpunit.cache
 *.cache
 *.log
 *.ser

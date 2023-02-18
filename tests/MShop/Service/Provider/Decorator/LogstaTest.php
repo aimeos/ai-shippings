@@ -36,7 +36,7 @@ class LogstaTest extends \PHPUnit\Framework\TestCase
 
 		$this->object = $this->getMockBuilder( \Aimeos\MShop\Service\Provider\Decorator\Logsta::class )
 			->setConstructorArgs( [$this->stubProvider, $this->context, $this->servItem] )
-			->setMethods( ['send'] )
+			->onlyMethods( ['send'] )
 			->getMock();
 	}
 
