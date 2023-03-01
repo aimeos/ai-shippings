@@ -21,9 +21,9 @@ class Logsta
 	extends \Aimeos\MShop\Service\Provider\Decorator\Base
 	implements \Aimeos\MShop\Service\Provider\Decorator\Iface
 {
-	private $url = 'https://api.logsta.com/shipments/estimate';
+	private string $url = 'https://api.logsta.com/shipments/estimate';
 
-	private $beConfig = [
+	private array $beConfig = [
 		'logsta.username' => [
 			'code' => 'logsta.username',
 			'internalcode' => 'logsta.username',
