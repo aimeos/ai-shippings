@@ -64,7 +64,7 @@ class Logsta
 			'code' => 'logsta.shippingServiceGroupId',
 			'internalcode' => 'logsta.shippingServiceGroupId',
 			'label' => 'Logsta ID of the shipping service group',
-			'type' => 'integer',
+			'type' => 'int',
 			'internaltype' => 'integer',
 			'default' => 0,
 			'required' => false,
