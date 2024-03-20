@@ -50,7 +50,7 @@ class LogstaTest extends \PHPUnit\Framework\TestCase
 
 	public function testGetConfigBE()
 	{
-		$this->stubProvider->expects( $this->once() )->method( 'getConfigBE' )->will( $this->returnValue( [] ) );
+		$this->stubProvider->expects( $this->once() )->method( 'getConfigBE' )->willReturn( [] );
 
 		$result = $this->object->getConfigBE();
 
@@ -66,7 +66,7 @@ class LogstaTest extends \PHPUnit\Framework\TestCase
 	{
 		$this->stubProvider->expects( $this->once() )
 			->method( 'checkConfigBE' )
-			->will( $this->returnValue( [] ) );
+			->willReturn( [] );
 
 		$attributes = [
 			'logsta.username' => 'user',
@@ -90,13 +90,13 @@ class LogstaTest extends \PHPUnit\Framework\TestCase
 		$price = \Aimeos\MShop::create( $this->context, 'price' )->create();
 
 		$this->stubProvider->expects( $this->once() )->method( 'calcPrice' )
-			->will( $this->returnValue( $price ) );
+			->willReturn( $price );
 
 		$this->object->expects( $this->exactly( 2 ) )->method( 'send' )
-			->will( $this->onConsecutiveCalls(
+			->willReturn(
 				[['token' => 'abcd'], 200],
 				[['estimateResults' => [['success' => true, 'amountLabel' => '10.00']]], 200]
-			) );
+			);
 
 		$this->assertEquals( '10.00', $this->object->calcPrice( $this->getOrderItem() )->getCosts() );
 	}
