@@ -9,6 +9,7 @@
 namespace Aimeos\MShop\Service\Provider\Decorator;
 
 
+#[\PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations]
 class LogstaTest extends \PHPUnit\Framework\TestCase
 {
 	private $object;
