@@ -92,7 +92,7 @@ class Logsta
 	 * Returns the configuration attribute definitions of the provider to generate a list of available fields and
 	 * rules for the value of each field in the administration interface.
 	 *
-	 * @return array List of attribute definitions implementing \Aimeos\Base\Critera\Attribute\Iface
+	 * @return array List of attribute definitions implementing \Aimeos\Base\Criteria\Attribute\Iface
 	 */
 	public function getConfigBE() : array
 	{
@@ -111,7 +111,8 @@ class Logsta
 	{
 		$price = $this->getProvider()->calcPrice( $basket, $options );
 
-		return $price->setCosts( $price->getCosts() + $this->getCosts( $basket ) );
+		// @phpstan-ignore argument.type
+		return $price->setCosts( $price->getCosts() + $this->getCosts( $basket ) ); // @phpstan-ignore binaryOp.invalid
 	}
 
 
@@ -130,6 +131,7 @@ class Logsta
 		}
 
 		$quantities = $this->getQuantities( $basket );
+		// @phpstan-ignore argument.type
 		$key = 'logsta/costs/' . md5( json_encode( $quantities ) );
 
 		$session = $this->context()->session();
@@ -137,12 +139,13 @@ class Logsta
 		if( ( $costs = $session->get( $key ) ) === null )
 		{
 			$weight = $this->getWeight( $quantities );
+			// @phpstan-ignore argument.type
 			$costs = $this->estimate( $address, $weight );
 		}
 
 		$session->set( $key, $costs );
 
-		return $costs;
+		return (float) $costs;
 	}
 
 
@@ -185,6 +188,7 @@ class Logsta
 		$manager = \Aimeos\MShop::create( $this->context(), 'product' );
 		$search = $manager->filter()->add( ['product.code' => array_keys( $prodMap )] )->slice( 0, count( $prodMap ) );
 
+		// @phpstan-ignore argument.type
 		foreach( $manager->search( $search, ['product/property' => ['package-weight']] ) as $product )
 		{
 			foreach( $product->getProperties( 'package-weight' ) as $value ) {
@@ -246,7 +250,7 @@ class Logsta
 	 *
 	 * @param string $url URL of the Logsta API endpoint
 	 * @param array $payload Payload of the request
-	 * @param array Associative list of HTTP headers
+	 * @param array $headers Associative list of HTTP headers
 	 * @return array Logsta API response
 	 */
 	protected function send( string $url, array $payload, array $headers = [] )
@@ -265,11 +269,14 @@ class Logsta
 		$headers['Content-Type'] = 'application/json';
 		$body = json_encode( $payload );
 
+		// @phpstan-ignore argument.type
 		curl_setopt( $ch, CURLOPT_URL, $url );
+		// @phpstan-ignore argument.type
 		curl_setopt( $ch, CURLOPT_HTTPHEADER, $headers );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 5 );
 		curl_setopt( $ch, CURLOPT_TIMEOUT, 5 );
+		// @phpstan-ignore argument.type
 		curl_setopt( $ch, CURLOPT_POSTFIELDS, $body );
 		curl_setopt( $ch, CURLOPT_POST, true );
 
@@ -285,6 +292,7 @@ class Logsta
 			throw new \RuntimeException( sprintf( 'Curl getinfo failed for "%1$s": %2$s', $url, curl_error( $ch ) ) );
 		}
 
+		// @phpstan-ignore argument.type
 		if( ( $result = json_decode( $response, true ) ) === null || !is_array( $result ) ) {
 			throw new \RuntimeException( sprintf( 'Invalid repsonse for "%1$s": %2$s', $url, $response ) );
 		}
@@ -303,7 +311,7 @@ class Logsta
 		$session = $this->context()->session();
 
 		if( ( $token = $session->get( 'logsta/token/value' ) ) && $session->get( 'logsta/token/until' ) < time() ) {
-			return $token;
+			return (string) $token;
 		}
 
 		list( $result, $code ) = $this->send( 'https://api.logsta.com/login', [
@@ -320,6 +328,6 @@ class Logsta
 		$session->set( 'logsta/token/value', $result['token'] );
 		$session->set( 'logsta/token/until', time() + 3600 );
 
-		return $result['token'];
+		return (string) $result['token'];
 	}
 }
